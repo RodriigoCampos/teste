@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SPA-UNIVERSE</title>
+
+    <link rel="stylesheet" href="./css/index.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <img src="./assets/Vector.svg" alt="">
+            <a class="home" href="/home" onclick="route()">Home</a>
+            <a href="/universe" onclick="route()">O Universo</a>
+            <a href="/explorer" onclick="route()">Exploração</a>
+        </nav>
+    </header>
+
+    <main class="main">
+        <h1>Explore o universo</h1>
+        <a href="/universe1" onclick="route()">
+            <img src="./assets/button.svg" alt="">
+        </a> 
+    </main>
+    <div id="app"></div>
+
+    <script>
+        const routes = {
+            "/home": "index.html",
+            "/universe": "/pages/universe.html",
+            "/universe1": "/pages/universe.html",
+            "/explorer": "/pages/explorer.html",
+        }
+
+        const btnPlay = document.querySelector('.btnPlay')
+        const main = document.querySelector('.main')
+        const home = document.querySelector('.home')
+
+
+        function route(event){
+            event = event || window.event
+            event.preventDefault()
+
+            
+            window.history.pushState({}, "", event.target.href)
+            handle()
+        }
+
+        function handle() {
+            const { pathname } = window.location
+            const route = routes[pathname]
+
+            fetch(route).then(data => data.text()).then(html => {
+                document.querySelector("#app").innerHTML = html
+            })
+        }
+
+        
+    </script>
+
+    
+</body>
+</html>
+    
